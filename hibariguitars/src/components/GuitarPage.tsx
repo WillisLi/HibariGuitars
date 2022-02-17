@@ -13,12 +13,16 @@ interface GuitarProps {
     image: string;
 }
 
+interface PageProps {
+    page: number;
+}
+
 const fetchData = async () => {
     const { data } = await axios.get(`${process.env.REACT_APP_API_URL}`)
     return data;
 }
 
-function GuitarPage() {
+function GuitarPage({ page }: PageProps) {
     const { data, status, isFetching } = useQuery(["guitars"], () => fetchData(), {
         staleTime: 2000000,
         cacheTime: 2000000 
@@ -33,7 +37,7 @@ function GuitarPage() {
 
     return (
         <div className = "flex flex-wrap justify-evenly w-3/4">
-            {status === 'success' && data.splice(0, 20).map((guitar: GuitarProps, index: number) => (
+            {status === 'success' && data.slice(page * 15, page * 15 + 15).map((guitar: GuitarProps, index: number) => (
                 <div className = "text-center flex flex-col items-center w-48 mr-2 mb-7 border shadow-cards shadow-slate-500 rounded-2xl hover:scale-105 transition-all group">
                     <div className = "w-full h-full relative shadow-xl shadow-slate-400 rounded-t-2xl rounded-b-3xl overflow-hidden">
                         <img className = "w-full" src = {guitar.image} alt = "guitarImg" />
