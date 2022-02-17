@@ -16,7 +16,7 @@ function App() {
 
   return (
     <QueryClientProvider client = {queryClient}>
-      <div className = "flex flex-col item">
+      <div className = "flex flex-col min-h-screen">
         <Header />
         <GuitarPage />
         <Footer />
