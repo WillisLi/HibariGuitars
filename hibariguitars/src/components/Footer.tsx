@@ -3,7 +3,7 @@ import { FaDiscord, FaReddit, FaYoutube, FaTwitter, FaGithub } from "react-icons
 
 function Footer() {
   return (
-    <footer className = "flex flex-col items-center shadow-top py-8 mt-10 shadow-slate-700 text-neutral-700">
+    <footer className = "flex flex-col items-center shadow-top py-6 mt-10 shadow-slate-700 text-neutral-700">
       <p>
           This project is a non-profit, fan-made project used for informational and educational purposes only.
       </p>
