@@ -1,6 +1,6 @@
 import React from 'react';
-import cme from 'assets/cme_logo.png';
-import sweetwater from 'assets/sweetwater_logo.webp';
+import cme from 'assets/images/cme_logo.png';
+import sweetwater from 'assets/images/sweetwater_logo.webp';
 
 interface GuitarProps {
     name: string;
@@ -19,6 +19,7 @@ interface PageProps {
 function GuitarList({ page, data }: PageProps) {
     return (
         <div className = "flex flex-wrap justify-evenly w-3/4">
+            <p>{data.length} Results</p>
             {data.slice(page * 15, page * 15 + 15).map((guitar: GuitarProps, index: number) => (
                 <div key = {index} className = "text-center flex flex-col items-center w-48 mr-2 mb-7 border shadow-cards shadow-slate-500 rounded-2xl hover:scale-105 transition-all group">
                     <div className = "w-full h-full relative shadow-xl shadow-slate-400 rounded-t-2xl rounded-b-3xl overflow-hidden">
