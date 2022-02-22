@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useQuery } from 'react-query';
-import { applyFilters } from 'utils/utils';
+import { applySort, applyFilters } from 'utils/utils';
 import GuitarList from 'components/GuitarList';
 import Checkbox from './Filters/Checkbox';
 import { brands, types, sellers } from 'assets/data/filterCategories';
+import Dropdown from './Filters/Dropdown';
 
 interface FilterProps {
     brands: string[],
@@ -28,19 +29,21 @@ function MainContent() {
         sellers: [],
         types: [],
     })
+    const [sortOrder, setSortOrder] = useState("")
 
     if (status === 'success') {
-        console.log(data)
+        console.log("Success!")
+        console.log(sortOrder)
     }
 
     const toggleFilter = (value: string, category: string) => {
         const newList: FilterProps = { ...filterList }
-
-        if (newList[category as keyof FilterProps].includes(value)) {
-            const indexVal = newList[category as keyof FilterProps].indexOf(value);
-            newList[category as keyof FilterProps].splice(indexVal, 1);
+        const filterArr = newList[category as keyof FilterProps]
+        if (filterArr.includes(value)) {
+            const indexVal = filterArr.indexOf(value);
+            filterArr.splice(indexVal, 1);
         } else {
-            newList[category as keyof FilterProps].push(value);
+            filterArr.push(value);
         }
         console.log(newList)
         setFilterList(newList)
@@ -59,8 +62,11 @@ function MainContent() {
   return (
     <>
         {status === 'success' && <div>
+            <Dropdown sortBy = {setSortOrder} />
             <Checkbox data = {brands} type = "brands" toggleFilter = {toggleFilter} />
-            <GuitarList page = {page} data = {applyFilters(data, filterList)} />
+            <Checkbox data = {types} type = "types" toggleFilter = {toggleFilter} />
+            <Checkbox data = {sellers} type = "sellers" toggleFilter = {toggleFilter} />
+            <GuitarList page = {page} data = {applySort(applyFilters(data, filterList), sortOrder)} />
             <div>
                 <button onClick = {prevPage}>Previous</button>
                 <button onClick = {nextPage}>Next</button>

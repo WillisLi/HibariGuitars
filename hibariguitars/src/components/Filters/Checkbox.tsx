@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { lowerString } from 'utils/utils';
 interface CheckboxProps {
     data: string[],
     type: string,
@@ -13,7 +13,7 @@ function Checkbox({ data, type, toggleFilter }: CheckboxProps) {
         <form>
             {data.map((name: string) => (
                 <div>
-                    <input type = "checkbox" id = {name} name = {name} onClick = {() => toggleFilter(name, type)} />
+                    <input type = "checkbox" id = {name} name = {name} onClick = {() => toggleFilter(lowerString(name), type)} />
                     <label htmlFor = {name}>{name}</label>
                 </div>
             ))}
