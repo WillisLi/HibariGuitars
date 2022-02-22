@@ -5,6 +5,7 @@ export const brands = [
     "ESP",
     "Fender",
     "Gibson",
+    "Ibanez",
     "Luna",
     "Martin",
     "Ovation",

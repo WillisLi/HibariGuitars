@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useQuery } from 'react-query';
 import { applySort, applyFilters } from 'utils/utils';
@@ -6,6 +6,8 @@ import GuitarList from 'components/GuitarList';
 import Checkbox from './Filters/Checkbox';
 import { brands, types, sellers } from 'assets/data/filterCategories';
 import Dropdown from './Filters/Dropdown';
+import { HiOutlineArrowNarrowLeft, HiOutlineArrowNarrowRight } from 'react-icons/hi';
+import { IconContext } from 'react-icons/lib';
 
 interface FilterProps {
     brands: string[],
@@ -59,17 +61,30 @@ function MainContent() {
         setPage(page + 1)
     }
 
+    useEffect(() => {
+        setPage(0)
+    }, [filterList])
+
   return (
     <>
-        {status === 'success' && <div>
-            <Dropdown sortBy = {setSortOrder} />
-            <Checkbox data = {brands} type = "brands" toggleFilter = {toggleFilter} />
-            <Checkbox data = {types} type = "types" toggleFilter = {toggleFilter} />
-            <Checkbox data = {sellers} type = "sellers" toggleFilter = {toggleFilter} />
-            <GuitarList page = {page} data = {applySort(applyFilters(data, filterList), sortOrder)} />
-            <div>
-                <button onClick = {prevPage}>Previous</button>
-                <button onClick = {nextPage}>Next</button>
+        {status === 'success' && <div className = "flex flex-row justify-center">
+            <div className = "flex flex-col space-y-5">
+                <Checkbox data = {brands} type = "brands" toggleFilter = {toggleFilter} />
+                <Checkbox data = {types} type = "types" toggleFilter = {toggleFilter} />
+                <Checkbox data = {sellers} type = "sellers" toggleFilter = {toggleFilter} />
+            </div>
+            <div className = "w-3/4 flex flex-col pl-3">
+                <div className = "flex flex-row justify-between w-full mb-4 px-3">
+                    <Dropdown sortBy = {setSortOrder} />
+                    <p className = "select-none">{applyFilters(data, filterList).length} Results</p>
+                </div>
+                <GuitarList page = {page} data = {applySort(applyFilters(data, filterList), sortOrder)} />
+                <div className = "self-end space-x-10 px-5">
+                    <IconContext.Provider value = {{  size: '3rem' }}>
+                        {page !== 0 && <button onClick = {prevPage} className = "hover:animate-pulse"><HiOutlineArrowNarrowLeft /></button>}
+                        {applyFilters(data, filterList).slice(page * 15, page * 15 + 15).length === 15 && <button onClick = {nextPage} className = "hover:animate-pulse"><HiOutlineArrowNarrowRight /></button>}
+                    </IconContext.Provider>
+                </div>
             </div>
         </div>}
     </>
