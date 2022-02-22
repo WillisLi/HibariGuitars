@@ -11,6 +11,8 @@ function Dropdown({ sortBy }: DropDownProps) {
         <option value = "">- Sort By -</option>
         <option value = "low">Price - Low to High</option>
         <option value = "high">Price - High to Low</option>
+        <option value = "alpha-low">Name: A - Z</option>
+        <option value = "alpha-high">Name: Z - A</option>
       </select>
     </div>
   )

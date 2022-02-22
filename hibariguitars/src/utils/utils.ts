@@ -29,6 +29,12 @@ export function applySort(data: any, order: string) {
     } else if (order === "high") {
         newArr.sort((a: GuitarProps, b: GuitarProps) => parseFloat(a.price.replace(/[$,]/g, '')) < parseFloat(b.price.replace(/[$,]/g, '')) ? 1 : -1)
         return newArr;
+    } else if (order === "alpha-low") {
+        newArr.sort((a: GuitarProps, b: GuitarProps) => a.name > b.name ? 1 : -1)
+        return newArr;
+    } else if (order === "alpha-high") {
+        newArr.sort((a: GuitarProps, b: GuitarProps) => a.name < b.name ? 1 : -1)
+        return newArr;
     } else {
         return newArr;
     }

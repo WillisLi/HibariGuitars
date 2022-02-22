@@ -63,12 +63,12 @@ function MainContent() {
 
     useEffect(() => {
         setPage(0)
-    }, [filterList])
+    }, [filterList, sortOrder])
 
   return (
     <>
         {status === 'success' && <div className = "flex flex-row justify-center">
-            <div className = "flex flex-col space-y-5">
+            <div className = "flex flex-col space-y-6">
                 <Checkbox data = {brands} type = "brands" toggleFilter = {toggleFilter} />
                 <Checkbox data = {types} type = "types" toggleFilter = {toggleFilter} />
                 <Checkbox data = {sellers} type = "sellers" toggleFilter = {toggleFilter} />
