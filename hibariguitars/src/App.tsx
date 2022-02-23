@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
 import MainContent from 'components/MainContent';

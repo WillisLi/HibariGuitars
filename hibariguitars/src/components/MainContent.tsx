@@ -22,7 +22,7 @@ const fetchData = async () => {
 
 function MainContent() {
     const [ page, setPage ] = useState(0);
-    const { data, status, isFetching } = useQuery(["guitars"], () => fetchData(), {
+    const { data, status } = useQuery(["guitars"], () => fetchData(), {
         staleTime: 2000000,
         cacheTime: 2000000 
     })
