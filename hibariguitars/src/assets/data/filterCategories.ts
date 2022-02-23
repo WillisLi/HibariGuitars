@@ -3,6 +3,7 @@ export const brands = [
     "Breedlove",
     "Charvel",
     "Cordoba",
+    "D'Angelico",
     "Danelectro",
     "Epiphone",
     "ESP",
@@ -21,6 +22,7 @@ export const brands = [
     "Seagull",
     "Sire",
     "Squier",
+    "Sterling",
     "Takamine",
     "Taylor",
     "Yamaha",
@@ -34,5 +36,6 @@ export const types = [
 
 export const sellers = [
     "Chicago Music Exchange",
+    "Guitar Center",
     "Sweetwater",
 ]
