@@ -9,6 +9,7 @@ import Dropdown from './Filters/Dropdown';
 import { HiOutlineArrowNarrowLeft, HiOutlineArrowNarrowRight } from 'react-icons/hi';
 import { IconContext } from 'react-icons/lib';
 import SearchBar from './Filters/SearchBar';
+import Loading from './Loading';
 
 interface FilterProps {
     brands: string[],
@@ -23,7 +24,7 @@ const fetchData = async () => {
 
 function MainContent() {
     const [ page, setPage ] = useState(0);
-    const { data, status } = useQuery(["guitars"], () => fetchData(), {
+    const { data, status, isFetching } = useQuery(["guitars"], () => fetchData(), {
         staleTime: 2000000,
         cacheTime: 2000000 
     })
@@ -34,10 +35,6 @@ function MainContent() {
     })
     const [sortOrder, setSortOrder] = useState("")
     const [searchTerm, setSearchTerm] = useState("")
-
-    if (status === 'success') {
-        console.log("Success!")
-    }
 
     const toggleFilter = (value: string, category: string) => {
         const newList: FilterProps = { ...filterList }
@@ -69,11 +66,13 @@ function MainContent() {
 
     useEffect(() => {
         setPage(0)
-    }, [filterList, sortOrder])
+    }, [filterList, sortOrder, searchTerm])
 
   return (
     <>
-        {status === 'success' && <div className = "flex flex-row justify-center">
+        {status !== 'success' && isFetching === true ? 
+            <Loading />
+        : <div className = "flex flex-row justify-center">
             <div className = "flex flex-col space-y-6">
                 <Checkbox data = {brands} type = "brands" toggleFilter = {toggleFilter} />
                 <Checkbox data = {types} type = "types" toggleFilter = {toggleFilter} />
