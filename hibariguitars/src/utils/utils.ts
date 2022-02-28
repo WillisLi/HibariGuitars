@@ -20,6 +20,11 @@ export function applyFilters(data: any, filters: any) {
     });
 }
 
+export function applySearch(data: any, input: string) {
+    console.log(input)
+    return input !== "" ? data.filter((guitar: GuitarProps) => guitar.name.toLowerCase().includes(input.toLowerCase())) : data
+}
+
 
 export function applySort(data: any, order: string) {
     const newArr = [...data]

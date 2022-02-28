@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useQuery } from 'react-query';
-import { applySort, applyFilters } from 'utils/utils';
+import { applySort, applyFilters, applySearch } from 'utils/utils';
 import GuitarList from 'components/GuitarList';
 import Checkbox from './Filters/Checkbox';
 import { brands, types, sellers } from 'assets/data/filterCategories';
 import Dropdown from './Filters/Dropdown';
 import { HiOutlineArrowNarrowLeft, HiOutlineArrowNarrowRight } from 'react-icons/hi';
 import { IconContext } from 'react-icons/lib';
+import SearchBar from './Filters/SearchBar';
 
 interface FilterProps {
     brands: string[],
@@ -32,10 +33,10 @@ function MainContent() {
         types: [],
     })
     const [sortOrder, setSortOrder] = useState("")
+    const [searchTerm, setSearchTerm] = useState("")
 
     if (status === 'success') {
         console.log("Success!")
-        console.log(sortOrder)
     }
 
     const toggleFilter = (value: string, category: string) => {
@@ -47,8 +48,13 @@ function MainContent() {
         } else {
             filterArr.push(value);
         }
-        console.log(newList)
         setFilterList(newList)
+    }
+
+    const filterSearch = (event: any) => {
+        event.preventDefault();
+        const input = event.target.value;
+        setSearchTerm(input);
     }
 
     const prevPage = () => {
@@ -75,10 +81,13 @@ function MainContent() {
             </div>
             <div className = "w-3/4 flex flex-col pl-3">
                 <div className = "flex flex-row justify-between w-full mb-4 px-3">
-                    <Dropdown sortBy = {setSortOrder} />
-                    <p className = "select-none">{applyFilters(data, filterList).length} Results</p>
+                    <div className = "flex flex-row space-x-3">
+                        <Dropdown sortBy = {setSortOrder} />
+                        <SearchBar searchTerm = {searchTerm} filterList = {filterSearch}/>
+                    </div>
+                    <p className = "select-none">{applySearch(applyFilters(data, filterList), searchTerm).length} Results</p>
                 </div>
-                <GuitarList page = {page} data = {applySort(applyFilters(data, filterList), sortOrder)} />
+                <GuitarList page = {page} data = {applySort(applySearch(applyFilters(data, filterList), searchTerm), sortOrder)} />
                 <div className = "self-end space-x-10 px-5">
                     <IconContext.Provider value = {{  size: '3rem' }}>
                         {page !== 0 && <button onClick = {prevPage} className = "hover:animate-pulse"><HiOutlineArrowNarrowLeft /></button>}
