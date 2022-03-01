@@ -88,7 +88,7 @@ function MainContent() {
                         <IconContext.Provider value = {{  color: 'gray', size: '2.8rem' }}>
                             {page !== 0 && <button onClick = {prevPage} className = "hover:animate-pulse"><HiOutlineArrowNarrowLeft /></button>}
                             <p className = "select-none font-semibold text-slate-600 animate">{applySearch(applyFilters(data, filterList), searchTerm).length} Results</p>
-                            {applyFilters(data, filterList).slice(page * 15, page * 15 + 15).length === 15 && <button onClick = {nextPage} className = "hover:animate-pulse"><HiOutlineArrowNarrowRight /></button>}
+                            {applySearch(applyFilters(data, filterList), searchTerm).slice(page * 15, page * 15 + 15).length === 15 && <button onClick = {nextPage} className = "hover:animate-pulse"><HiOutlineArrowNarrowRight /></button>}
                         </IconContext.Provider>
                     </div>
                 </div>
@@ -96,7 +96,7 @@ function MainContent() {
                 <div className = "self-end space-x-10 px-5">
                     <IconContext.Provider value = {{  color: 'gray', size: '2.8rem' }}>
                         {page !== 0 && <button onClick = {prevPage} className = "hover:animate-pulse"><HiOutlineArrowNarrowLeft /></button>}
-                        {applyFilters(data, filterList).slice(page * 15, page * 15 + 15).length === 15 && <button onClick = {nextPage} className = "hover:animate-pulse"><HiOutlineArrowNarrowRight /></button>}
+                        {applySearch(applyFilters(data, filterList), searchTerm).slice(page * 15, page * 15 + 15).length === 15 && <button onClick = {nextPage} className = "hover:animate-pulse"><HiOutlineArrowNarrowRight /></button>}
                     </IconContext.Provider>
                 </div>
             </div>
