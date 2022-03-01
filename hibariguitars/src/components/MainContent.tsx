@@ -79,16 +79,22 @@ function MainContent() {
                 <Checkbox data = {sellers} type = "sellers" toggleFilter = {toggleFilter} />
             </div>
             <div className = "w-3/4 flex flex-col pl-3">
-                <div className = "flex flex-row justify-between w-full mb-4 px-3">
+                <div className = "flex flex-row items-center justify-between w-full mb-4 px-3">
                     <div className = "flex flex-row space-x-3">
                         <Dropdown sortBy = {setSortOrder} />
                         <SearchBar searchTerm = {searchTerm} filterList = {filterSearch}/>
                     </div>
-                    <p className = "select-none">{applySearch(applyFilters(data, filterList), searchTerm).length} Results</p>
+                    <div className = "self-end space-x-3 flex flex-row items-center px-5">
+                        <IconContext.Provider value = {{  color: 'gray', size: '2.8rem' }}>
+                            {page !== 0 && <button onClick = {prevPage} className = "hover:animate-pulse"><HiOutlineArrowNarrowLeft /></button>}
+                            <p className = "select-none font-semibold text-slate-600 animate">{applySearch(applyFilters(data, filterList), searchTerm).length} Results</p>
+                            {applyFilters(data, filterList).slice(page * 15, page * 15 + 15).length === 15 && <button onClick = {nextPage} className = "hover:animate-pulse"><HiOutlineArrowNarrowRight /></button>}
+                        </IconContext.Provider>
+                    </div>
                 </div>
                 <GuitarList page = {page} data = {applySort(applySearch(applyFilters(data, filterList), searchTerm), sortOrder)} />
                 <div className = "self-end space-x-10 px-5">
-                    <IconContext.Provider value = {{  size: '3rem' }}>
+                    <IconContext.Provider value = {{  color: 'gray', size: '2.8rem' }}>
                         {page !== 0 && <button onClick = {prevPage} className = "hover:animate-pulse"><HiOutlineArrowNarrowLeft /></button>}
                         {applyFilters(data, filterList).slice(page * 15, page * 15 + 15).length === 15 && <button onClick = {nextPage} className = "hover:animate-pulse"><HiOutlineArrowNarrowRight /></button>}
                     </IconContext.Provider>
